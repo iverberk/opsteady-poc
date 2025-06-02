@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/iverberk/opsteady-poc.git
+        revision: HEAD
+        files:
+          - path: apps/**/app.yaml
+  template:
+    metadata:
+      name: '{{ .name }}'
+    spec:
+      project: genesis
+      source:
+        chart: '{{ .chart }}'
+        repoURL: '{{ .repo }}'
+        targetRevision: '{{ .version }}'
+        helm:
+          releaseName: '{{ .name }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true

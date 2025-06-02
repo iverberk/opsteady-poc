@@ -1,0 +1,4 @@
+name: argocd
+chart: argo-cd
+repo: https://argoproj.github.io/argo-helm
+version: 8.0.14
