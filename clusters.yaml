@@ -21,7 +21,7 @@ spec:
       name: '{{ .name }}'
       namespace: argocd
     spec:
-      project: '{{ .name }}'
+      project: genesis
       source:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
