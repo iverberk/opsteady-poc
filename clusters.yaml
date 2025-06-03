@@ -25,7 +25,7 @@ spec:
       source:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
-        path: cluster
+        path: genesis
         # plugin:
         #   env:
         #   - name: CLUSTER
