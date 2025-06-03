@@ -37,7 +37,7 @@ spec:
         #   - name: PARENT_MGMT_CLUSTER
         #     value: {{ requiredEnv "ARGOCD_ENV_PARENT_MGMT_CLUSTER" }}
       destination:
-        name: '{{ .name }}'
+        name: genesis
         namespace: argocd
       syncPolicy:
         syncOptions:
