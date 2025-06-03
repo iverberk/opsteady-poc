@@ -8,7 +8,7 @@ metadata:
 type: Opaque
 stringData:
   name: opsteady
-  server: https://127.0.0.1:33015
+  server: https://172.18.0.3:33015
   config: |-
     {
       "tlsClientConfig":{
