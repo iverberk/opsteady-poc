@@ -21,11 +21,11 @@ spec:
       name: '{{ .name }}'
       namespace: argocd
     spec:
-      project: genesis
+      project: '{{ .name }}'
       source:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
-        path: genesis
+        path: '{{ .name }}'
         # plugin:
         #   env:
         #   - name: CLUSTER
@@ -37,7 +37,7 @@ spec:
         #   - name: PARENT_MGMT_CLUSTER
         #     value: {{ requiredEnv "ARGOCD_ENV_PARENT_MGMT_CLUSTER" }}
       destination:
-        name: genesis
+        name: '{{ .name }}'
         namespace: argocd
       syncPolicy:
         syncOptions:
