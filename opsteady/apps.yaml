@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  strategy:
+    type: RollingSync
+    rollingSync:
+      steps:
+      - matchExpressions:
+        - key: app
+          operator: In
+          values:
+          - argocd
+      # - matchExpressions:
+      #   - key: app
+      #     operator: In
+      #     values:
+      #     - cilium
+      #     - cert-manager
+      #     - kube-loxilb
+      # - matchExpressions:
+      #   - key: app
+      #     operator: In
+      #     values:
+      #     - argocd
+      #     - capi-operator
+      # - matchExpressions:
+      #   - key: app
+      #     operator: In
+      #     values:
+      #     - cluster
+  generators:
+    - git:
+        repoURL: https://github.com/iverberk/opsteady-poc.git
+        revision: HEAD
+        files:
+          - path: apps/**/app.yaml
+  template:
+    metadata:
+      name: '{{ .name }}'
+      labels:
+        app: '{{ .name }}'
+    spec:
+      project: opsteady
+      source:
+        chart: '{{ .chart }}'
+        repoURL: '{{ .repo }}'
+        targetRevision: '{{ .version }}'
+        helm:
+          releaseName: '{{ .name }}'
+      destination:
+        name: opsteady
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true

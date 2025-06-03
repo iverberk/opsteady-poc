@@ -32,7 +32,6 @@ spec:
       #     operator: In
       #     values:
       #     - cluster
-      #
   generators:
     - git:
         repoURL: https://github.com/iverberk/opsteady-poc.git
