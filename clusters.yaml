@@ -18,7 +18,7 @@ spec:
         #   - local
   template:
     metadata:
-      name: '{{ .name }}'
+      name: '{{ .name }}-cluster'
       namespace: argocd
     spec:
       project: genesis
@@ -26,16 +26,6 @@ spec:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
         path: '{{ .name }}'
-        # plugin:
-        #   env:
-        #   - name: CLUSTER
-        #     value: "{{ `{{ .name }}` }}"
-        #   - name: INFRA_PROVIDER
-        #     value: {{ requiredEnv "ARGOCD_ENV_INFRA_PROVIDER" }}
-        #   - name: HELMFILE_ENVIRONMENT
-        #     value: "{{ `{{ .name }}` }}"
-        #   - name: PARENT_MGMT_CLUSTER
-        #     value: {{ requiredEnv "ARGOCD_ENV_PARENT_MGMT_CLUSTER" }}
       destination:
         name: genesis
         namespace: argocd
