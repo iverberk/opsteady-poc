@@ -40,7 +40,7 @@ spec:
           - path: apps/**/app.yaml
   template:
     metadata:
-      name: '{{ .name }}'
+      name: 'opsteady-{{ .name }}'
       labels:
         app: '{{ .name }}'
     spec:
@@ -58,3 +58,5 @@ spec:
         automated:
           selfHeal: true
           prune: true
+        syncOptions:
+        - CreateNamespace=true

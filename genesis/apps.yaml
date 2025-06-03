@@ -40,7 +40,7 @@ spec:
           - path: apps/**/app.yaml
   template:
     metadata:
-      name: '{{ .name }}'
+      name: 'genesis-{{ .name }}'
       labels:
         app: '{{ .name }}'
     spec:
