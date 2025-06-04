@@ -13,10 +13,6 @@ spec:
         - key: argocd.argoproj.io/secret-type
           operator: In
           values: [cluster]
-        - key: name
-          operator: NotIn
-          values: 
-          - {{ .Values.cluster }}
   template:
     metadata:
       name: '{{ `{{ .name }}-cluster` }}'
@@ -26,7 +22,7 @@ spec:
       source:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
-        path: '{{ .Values.cluster }}'
+        path: '{{ `{{ .name }}` }}'
       destination:
         name: '{{ .Values.cluster }}'
         namespace: argocd
