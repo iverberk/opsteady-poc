@@ -13,6 +13,10 @@ spec:
         - key: argocd.argoproj.io/secret-type
           operator: In
           values: [cluster]
+        - key: name
+          operator: NotIn
+          values:
+          - {{ .Values.cluster }}
   template:
     metadata:
       name: '{{ `{{ .name }}-cluster` }}'
