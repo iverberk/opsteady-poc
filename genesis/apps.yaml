@@ -36,6 +36,7 @@ spec:
           valuesObject:
             name: '{{ .name }}'
             cluster: genesis
+            excludeSelf: false
       destination:
         name: genesis
         namespace: argocd
