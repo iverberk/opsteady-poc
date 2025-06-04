@@ -16,13 +16,13 @@ spec:
       name: '{{ .name }}-cluster'
       namespace: argocd
     spec:
-      project: genesis
+      project: '{{ .name }}'
       source:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
         path: '{{ .name }}'
       destination:
-        name: genesis
+        name: '{{ .name }}'
         namespace: argocd
       syncPolicy:
         syncOptions:
