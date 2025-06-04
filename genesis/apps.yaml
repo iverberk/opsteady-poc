@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  strategy:
+    type: RollingSync
+    rollingSync:
+      steps:
+      - matchExpressions:
+        - key: app
+          operator: In
+          values:
+          - argocd
+  generators:
+    - git:
+        repoURL: https://github.com/iverberk/opsteady-poc.git
+        revision: HEAD
+        files:
+          - path: apps/**/app.yaml
+  template:
+    metadata:
+      name: 'genesis-{{ .name }}'
+      labels:
+        app: '{{ .name }}'
+    spec:
+      project: genesis
+      source:
+        repoURL: https://github.com/iverberk/opsteady-poc.git
+        path: '{{ .path.path }}'
+        targetRevision: HEAD
+        helm:
+          releaseName: '{{ .name }}'
+          valuesObject:
+            name: '{{ .name }}'
+            cluster: genesis
+      destination:
+        name: genesis
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
