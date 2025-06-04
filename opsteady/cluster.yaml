@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
   labels:
     argocd.argoproj.io/secret-type: cluster
+    name: opsteady
 type: Opaque
 stringData:
   name: opsteady

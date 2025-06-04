@@ -11,6 +11,11 @@ spec:
       selector:
         matchLabels:
           argocd.argoproj.io/secret-type: cluster
+        matchExpressions:
+        - key: name
+          operator: NotIn
+          values:
+          - {{ .Values.cluster }}
   template:
     metadata:
       name: '{{ .Values.cluster }}-cluster'
