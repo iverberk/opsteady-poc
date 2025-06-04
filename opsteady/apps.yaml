@@ -14,24 +14,6 @@ spec:
           operator: In
           values:
           - argocd
-      # - matchExpressions:
-      #   - key: app
-      #     operator: In
-      #     values:
-      #     - cilium
-      #     - cert-manager
-      #     - kube-loxilb
-      # - matchExpressions:
-      #   - key: app
-      #     operator: In
-      #     values:
-      #     - argocd
-      #     - capi-operator
-      # - matchExpressions:
-      #   - key: app
-      #     operator: In
-      #     values:
-      #     - cluster
   generators:
     - git:
         repoURL: https://github.com/iverberk/opsteady-poc.git
