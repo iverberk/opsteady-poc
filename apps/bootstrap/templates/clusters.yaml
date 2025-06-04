@@ -19,7 +19,7 @@ spec:
           - {{ .Values.cluster }}
   template:
     metadata:
-      name: '{{ .Values.cluster }}-cluster'
+      name: '{{ .name }}-cluster'
       namespace: argocd
     spec:
       project: '{{ .Values.cluster }}'
