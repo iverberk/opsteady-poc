@@ -53,6 +53,7 @@ spec:
           releaseName: '{{ .name }}'
           valuesObject:
             name: '{{ .name }}'
+            cluster: opsteady
       destination:
         name: opsteady
         namespace: argocd

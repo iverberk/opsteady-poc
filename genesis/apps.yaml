@@ -53,6 +53,7 @@ spec:
           releaseName: '{{ .name }}'
           valuesObject:
             name: '{{ .name }}'
+            cluster: genesis
       destination:
         name: genesis
         namespace: argocd
