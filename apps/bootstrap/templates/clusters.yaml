@@ -9,14 +9,8 @@ spec:
   generators:
   - clusters:
       selector:
-        matchExpressions:
-        - key: argocd.argoproj.io/secret-type
-          operator: In
-          values: [cluster]
-        - key: name
-          operator: NotIn
-          values:
-          - {{ .Values.cluster }}
+        matchLabels:
+          argocd.argoproj.io/secret-type: cluster
   template:
     metadata:
       name: '{{ `{{ .name }}-cluster` }}'
