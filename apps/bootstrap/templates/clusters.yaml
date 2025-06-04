@@ -13,16 +13,16 @@ spec:
           argocd.argoproj.io/secret-type: cluster
   template:
     metadata:
-      name: '{{ .name }}-cluster'
+      name: '{{ .cluster }}-cluster'
       namespace: argocd
     spec:
-      project: '{{ .name }}'
+      project: '{{ .cluster }}'
       source:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
-        path: '{{ .name }}'
+        path: '{{ .cluster }}'
       destination:
-        name: '{{ .name }}'
+        name: '{{ .cluster }}'
         namespace: argocd
       syncPolicy:
         syncOptions:
