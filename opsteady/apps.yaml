@@ -46,11 +46,13 @@ spec:
     spec:
       project: opsteady
       source:
-        chart: '{{ .chart }}'
-        repoURL: '{{ .repo }}'
-        targetRevision: '{{ .version }}'
+        repoURL: https://github.com/iverberk/opsteady-poc.git
+        path: '{{ .path.path }}'
+        targetRevision: HEAD
         helm:
           releaseName: '{{ .name }}'
+          valuesObject:
+            name: '{{ .name }}'
       destination:
         name: opsteady
         namespace: argocd
