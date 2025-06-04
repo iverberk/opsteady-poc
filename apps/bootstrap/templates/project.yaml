@@ -2,16 +2,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: {{ .Values.name }}
+  name: {{ .Values.cluster }}
   namespace: argocd
 spec:
-  description: {{ .Values.name }} project
+  description: {{ .Values.cluster }} project
   sourceRepos:
   - '*'
   sourceNamespaces:
   - '*'
   destinations:
-  - name: {{ .Values.name }}
+  - name: {{ .Values.cluster }}
     namespace: '*'
   clusterResourceWhitelist:
   - group: '*'
