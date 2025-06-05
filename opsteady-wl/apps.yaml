@@ -36,6 +36,7 @@ spec:
           valuesObject:
             name: '{{ .name }}'
             cluster: opsteady-wl
+            enableClusters: false
       destination:
         name: opsteady-wl
         namespace: argocd

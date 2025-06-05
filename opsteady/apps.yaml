@@ -36,6 +36,7 @@ spec:
           valuesObject:
             name: '{{ .name }}'
             cluster: opsteady
+            enableClusters: true
             excludeSelf: true
       destination:
         name: opsteady

@@ -36,6 +36,7 @@ spec:
           valuesObject:
             name: '{{ .name }}'
             cluster: genesis
+            enableClusters: true
             excludeSelf: false
       destination:
         name: genesis
