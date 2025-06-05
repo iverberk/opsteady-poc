@@ -7,12 +7,12 @@
 3. Install the Opsteady cluster:
 ```
 kubectl apply -f opsteady/project.yaml
-kubectl apply -f opsteady/cluster.yaml
+kubectl apply -f clusters/opsteady.yaml
 ```
 
 4. Switch context to Opsteady cluster and install Opsteady-wl cluster:
 ```
 kubectl apply -f opsteady-wl/project.yaml
-kubectl apply -f opsteady-wl/cluster.yaml
+kubectl apply -f clusters/opsteady-wl.yaml
 ```
 ```
