@@ -1,4 +1,4 @@
-{{- if .Values.enableClusters }}
+{{- if eq .Values.childClusters "enabled" }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -15,7 +15,7 @@ spec:
           operator: In
           values:
           - cluster
-        {{- if .Values.excludeSelf }}
+        {{- if eq .Values.excludeSelf "disabled" }}
         - key: name
           operator: NotIn
           values:

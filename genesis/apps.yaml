@@ -36,8 +36,8 @@ spec:
           valuesObject:
             name: '{{ .name }}'
             cluster: genesis
-            enableClusters: true
-            excludeSelf: false
+            childClusters: '{{ index .metadata.annotations "child-clusters" }}'
+            excludeSelf: '{{ index .metadata.annotations "exclude-self" }}'
       destination:
         name: genesis
         namespace: argocd
