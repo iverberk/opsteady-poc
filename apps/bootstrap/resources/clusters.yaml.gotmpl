@@ -1,4 +1,4 @@
-{{- if eq .Values.childClusters }}
+{{- if .Values.childClusters }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -15,7 +15,7 @@ spec:
           operator: In
           values:
           - cluster
-        {{- if eq .Values.excludeSelf }}
+        {{- if .Values.excludeSelf }}
         - key: name
           operator: NotIn
           values:
@@ -32,7 +32,7 @@ spec:
         targetRevision: HEAD
         path: '{{ `{{ .name }}` }}'
       destination:
-        name: '{{ .Values.parentCluster }}'
+        name: {{ .Values.parentCluster }}
         namespace: argocd
       syncPolicy:
         syncOptions:

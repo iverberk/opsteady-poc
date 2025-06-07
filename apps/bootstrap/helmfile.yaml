@@ -4,4 +4,4 @@ bases:
 releases:
 - name: {{ .Environment.Name }}-bootstrap
   namespace: argocd
-  chart: resources
+  chart: ./resources
