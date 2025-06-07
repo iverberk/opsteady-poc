@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
   labels:
     argocd.argoproj.io/secret-type: cluster
+    name: {{ .Environment.Name }}
 type: Opaque
 stringData:
   name: {{ .Environment.Name }}

@@ -4,13 +4,16 @@ environments:
     values:
     - childClusters: true
       parentCluster: genesis
+      excludeSelf: false
 
   opsteady:
     values:
     - childClusters: true
       parentCluster: genesis
+      excludeSelf: true
 
   opsteady-wl:
     values:
     - childClusters: false
       parentCluster: opsteady
+      excludeSelf: true
