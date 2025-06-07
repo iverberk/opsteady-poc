@@ -36,7 +36,7 @@ spec:
           - name: HELMFILE_ENVIRONMENT
             value: '{{ `{{ .name }}` }}'
       destination:
-        name: {{ .Values.parentCluster }}
+        name: {{ .Environment.Name }}
         namespace: argocd
       syncPolicy:
         syncOptions:
