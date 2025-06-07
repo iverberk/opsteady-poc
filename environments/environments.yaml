@@ -11,4 +11,6 @@ environments:
       parentCluster: genesis
 
   opsteady-wl:
-    values: []
+    values:
+    - childClusters: false
+      parentCluster: opsteady
