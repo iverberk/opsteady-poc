@@ -30,7 +30,11 @@ spec:
       source:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
-        path: '{{ `{{ .name }}` }}'
+        path: cluster
+        plugin:
+          env:
+          - name: ARGOCD_ENV_HELMFILE_ENVIRONMENT
+            value: {{ .Environment.Name }}
       destination:
         name: {{ .Values.parentCluster }}
         namespace: argocd
