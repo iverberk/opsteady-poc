@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: {{ .Environment.Name }}-apps
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  strategy:
+    type: RollingSync
+    rollingSync:
+      steps:
+      - matchExpressions:
+        - key: app
+          operator: In
+          values:
+          - argocd
+  generators:
+    - git:
+        repoURL: https://github.com/iverberk/opsteady-poc.git
+        revision: HEAD
+        files:
+          - path: apps/**/app.yaml
+  template:
+    metadata:
+      name: '{{ .Environment.Name }}-{{ `{{ .name }}` }}'
+      labels:
+        app: '{{ `{{ .name }}` }}'
+    spec:
+      project: {{ .Environment.Name }}
+      source:
+        repoURL: https://github.com/iverberk/opsteady-poc.git
+        path: '{{ `{{ .path.path }}` }}'
+        targetRevision: HEAD
+      destination:
+        name: {{ .Environment.Name }}
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true

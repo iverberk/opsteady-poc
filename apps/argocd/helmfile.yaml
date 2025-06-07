@@ -1,0 +1,68 @@
+bases:
+- ../../environments/environments.yaml
+---
+repositories:
+- name: argo
+  url: https://argoproj.github.io/argo-helm
+
+releases:
+- name: argocd
+  namespace: argocd
+  version: 8.0.14
+  chart: argo/argo-cd
+  values:
+  - crds:
+      install: true
+    dex:
+      enabled: false
+    applicationSet:
+      allowAnyNamespace: true
+    repoServer:
+      extraContainers:
+      - name: helmfile
+        command:
+        - "/var/run/argocd/argocd-cmp-server"
+        image: iverberk/helmfile-yq:v0.171.0
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 999
+        volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+        - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+          subPath: helmfile.yaml
+          name: argocd-cmp-cm
+        - mountPath: /tmp
+          name: cmp-tmp
+        - mountPath: /helm
+          name: helm-tmp
+      volumes:
+      - name: argocd-cmp-cm
+        configMap:
+          name: argocd-cmp-cm
+      - name: cmp-tmp
+        emptyDir: {}
+      - name: helm-tmp
+        emptyDir: {}
+    configs:
+      cm:
+        application.resourceTrackingMethod: annotation
+        application.namespaces: "*"
+      params:
+        applicationsetcontroller.namespaces: "*"
+        applicationsetcontroller.enable.scm.providers: false
+        application.namespaces: "*"
+        applicationsetcontroller.enable.progressive.syncs: true
+      cmp:
+        create: true
+        plugins:
+          helmfile:
+            init:
+              command: [sh, -c, 'echo "Initializing..."']
+            generate:
+              command: [sh, -c]
+              args: ["helmfile template --quiet --namespace $ARGOCD_APP_NAMESPACE -e $ARGOCD_ENV_HELMFILE_ENVIRONMENT"]
+            discover:
+              fileName: "helmfile.yaml"

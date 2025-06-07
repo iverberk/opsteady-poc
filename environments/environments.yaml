@@ -1,0 +1,12 @@
+---
+environments:
+  genesis:
+    values:
+    - childClusters: true
+      parentCluster: genesis
+
+  opsteady:
+    values: []
+
+  opsteady-wl:
+    values: []

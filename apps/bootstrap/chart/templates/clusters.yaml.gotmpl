@@ -1,0 +1,41 @@
+{{- if eq .Values.childClusters }}
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: {{ .Environment.Name }}-clusters
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - clusters:
+      selector:
+        matchExpressions:
+        - key: argocd.argoproj.io/secret-type
+          operator: In
+          values:
+          - cluster
+        {{- if eq .Values.excludeSelf }}
+        - key: name
+          operator: NotIn
+          values:
+          - {{ .Environment.Name }}
+        {{- end }}
+  template:
+    metadata:
+      name: '{{ `{{ .name }}-cluster` }}'
+      namespace: argocd
+    spec:
+      project: '{{ .Environment.Name }}'
+      source:
+        repoURL: https://github.com/iverberk/opsteady-poc.git
+        targetRevision: HEAD
+        path: '{{ `{{ .name }}` }}'
+      destination:
+        name: '{{ .Values.parentCluster }}'
+        namespace: argocd
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated: {}
+{{- end }}

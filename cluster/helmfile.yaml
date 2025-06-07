@@ -1,0 +1,7 @@
+bases:
+- ../../environments/environments.yaml
+---
+releases:
+- name: {{ Environment.Name }}-cluster
+  namespace: argocd
+  chart: resources
