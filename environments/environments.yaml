@@ -6,7 +6,9 @@ environments:
       parentCluster: genesis
 
   opsteady:
-    values: []
+    values:
+    - childClusters: true
+      parentCluster: genesis
 
   opsteady-wl:
     values: []

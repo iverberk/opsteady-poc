@@ -31,6 +31,10 @@ spec:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         path: '{{ `{{ .path.path }}` }}'
         targetRevision: HEAD
+        plugin:
+          env:
+          - name: HELMFILE_ENVIRONMENT
+            value: {{ .Environment.Name }}
       destination:
         name: {{ .Environment.Name }}
         namespace: argocd
@@ -38,3 +42,5 @@ spec:
         automated:
           selfHeal: true
           prune: true
+        syncOptions:
+          - CreateNamespace=true

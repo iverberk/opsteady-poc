@@ -26,15 +26,15 @@ spec:
       name: '{{ `{{ .name }}-cluster` }}'
       namespace: argocd
     spec:
-      project: '{{ .Environment.Name }}'
+      project: {{ .Environment.Name }}
       source:
         repoURL: https://github.com/iverberk/opsteady-poc.git
         targetRevision: HEAD
         path: cluster
         plugin:
           env:
-          - name: ARGOCD_ENV_HELMFILE_ENVIRONMENT
-            value: {{ .Environment.Name }}
+          - name: HELMFILE_ENVIRONMENT
+            value: '{{ `{{ .name }}` }}'
       destination:
         name: {{ .Values.parentCluster }}
         namespace: argocd
